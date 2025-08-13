@@ -1,35 +1,33 @@
 import random
 
 
-# Checks to make sure no value is repeated
-def checker(prompt, existing_values):
-    while True:
-        value = input(prompt)
-        if value in existing_values:
-            return f"Duplicate! Please re-enter new value for {value}"
-        
 # Gets random info from user
-hobby = checker("What is your favorite hobby?\n")
-existing = [hobby]
+hobby = input("What is your favorite hobby?\n")
+birth_year = input("What is your birth year?\n")
+pet_name = input("What is your pet's name?\n")
+sports_team = input("What is your favorite sports team?\n")
 
-birth_year = checker("What is your birth year?\n", existing)
-existing.append(birth_year)
 
-pet_name = checker("What is your pet's name?\n", existing)
-existing.append(pet_name)
+# List of info stored from the inputs
+info_list = [hobby, birth_year, pet_name, sports_team]
+values_set = {hobby, birth_year, pet_name, sports_team}
 
-sports_team = checker("What is your favorite sports team?\n", existing)
-existing.append(sports_team)
+# Checks to make sure no value is repeated
+while len(values_set) < len(info_list):
+    print("\nThere is a duplicate value! Re-enter the info.")
+    hobby = input("What is your favorite hobby?\n")
+    birth_year = input("What is your birth year?\n")
+    pet_name = input("What is your pet's name?\n")
+    sports_team = input("What is your favorite sports team?\n")
+    values_set = {hobby, birth_year, pet_name, sports_team}
+    info_list = [hobby, birth_year, pet_name, sports_team]
+
 
 # Puts space between the output and the password
 print("\n")
 
-# List of info stored from the inputs
-info_list = [hobby, birth_year, pet_name, sports_team]
-
 # Empty list to store the randomized order of info 
 printed_values = []
-
 
 # List of filler characters that go between 2 pieces of info for the password
 filler = ['-', '_', '.', '=', '!']
@@ -37,9 +35,10 @@ filler = ['-', '_', '.', '=', '!']
 # Function to get the random info from the info_list
 def in_infolist(info_list):
         info_choice = random.choice(info_list)
+        info_choice = str(info_choice)
         if info_choice not in printed_values:
+            info_choice = info_choice.replace("S", "$").replace("a", "@")
             printed_values.append(info_choice)
-
 
 # Function to grab a random filler and put it in a position that is fitting
 def in_fillerlist(filler):
